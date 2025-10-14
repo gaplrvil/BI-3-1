@@ -1,22 +1,24 @@
 import numpy as np
-# Задаем матрицу 8 на 8, это наше игровое поле
+# Создаем матрицу 8 на 8, это наше игровое поле
 chessboard = np.tile(np.array([[-1,1],[1,-1]]), (4,4)) 
 print(f'Шахматная доска: \n {chessboard}')
 
 # Создаём 8x8 матрицу из нулей, это наши фигуры
 chessman = np.zeros((8, 8))
 
-# Случайно выбираем количество ненулевых (от 0 до 32)
-chess_nonzero = np.random.randint(0, 33)  
+# Случайно выбираем количество ненулевых (от 1 до 32)
+chess_nonzero = np.random.randint(1, 33)  
 
-if chess_nonzero > 0:
-    # Выбираем случайные позиции
-    flat_indices = np.arange(64)
-    selected_indices = np.random.choice(flat_indices, chess_nonzero, replace=False)
-    # Генерируем случайные ненулевые значения (-1 или 1)
-    values = np.random.choice([-1, 1], chess_nonzero)  
-    # Присваиваем
-    chessman.flat[selected_indices] = values
+
+# Выбираем случайные позиции:
+# Задаем массив от 0 до 63 (индексы)
+flat_indices = np.arange(64)
+# Задаем случайные позиции без повторений индексов. 
+selected_indices = np.random.choice(flat_indices, chess_nonzero, replace=False)
+# Генерируем случайные ненулевые значения (-1 или 1)
+values = np.random.choice([-1, 1], chess_nonzero)  
+# Присваиваем
+chessman.flat[selected_indices] = values
 
 print("Количество ненулевых элементов:", chess_nonzero)
 print(f'Игровые фигуры: \n {chessman}')
