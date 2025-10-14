@@ -1,10 +1,66 @@
-print ('Вам сейчас нужно будет ввести координаты вершин треугольника x1 y1 x2 y2 x3 y3')
-a = int(input('Введите x1:'))
-b = int(input('Введите y1:'))
-c = int(input('Введите х2:'))
-d = int(input('Введите y2:'))
-e = int(input('Введите x3:'))
-g = int(input('Введите y3:'))
-print ('Координаты вершин треугольника: ', a, b, c, d, e, g)
-tch1 = int(input('Введите координаты точки x0:'))
-tch2 = int(input('Введите координаты точки y0:'))
+print("Введите координаты вершин треугольника (x1 y1 x2 y2 x3 y3):")
+
+coords = input().split()
+x1 = float(coords[0])
+y1 = float(coords[1])
+x2 = float(coords[2])
+y2 = float(coords[3])
+x3 = float(coords[4])
+y3 = float(coords[5])
+
+print("Введите координаты точки (x0 y0):")
+point = input().split()
+x0 = float(point[0])
+y0 = float(point[1])
+
+EPS = 1e-9
+
+import math
+AB = math.dist((x1, y1), (x2, y2))  
+BC = math.dist((x2, y2), (x3, y3))  
+AC = math.dist((x1, y1), (x3, y3))  
+
+
+p_abc = (AB + BC + AC) / 2
+
+S_abc = math.sqrt(p_abc * (p_abc - AB) * (p_abc - BC) * (p_abc - AC))
+
+
+if S_abc <= EPS:
+    print("Точки лежат на одной прямой или совпадают")
+    exit()  
+
+
+MA = math.dist((x0, y0), (x1, y1))  
+MB = math.dist((x0, y0), (x2, y2))  
+MC = math.dist((x0, y0), (x3, y3))  
+
+
+p_mab = (MA + AB + MB) / 2
+S_mab = math.sqrt(p_mab * (p_mab - MA) * (p_mab - AB) * (p_mab - MB))
+
+
+p_mbc = (MB + BC + MC) / 2
+S_mbc = math.sqrt(p_mbc * (p_mbc - MB) * (p_mbc - BC) * (p_mbc - MC))
+
+
+p_mac = (MA + AC + MC) / 2
+S_mac = math.sqrt(p_mac * (p_mac - MA) * (p_mac - AC) * (p_mac - MC))
+
+
+S_sum = S_mab + S_mbc + S_mac
+
+
+print(f"Площадь треугольника ABC = {S_abc}")
+print(f"Сумма площадей всех треугольников = {S_sum}")
+
+
+if abs(S_abc - S_sum) <= EPS:  
+    if S_mab < EPS or S_mbc < EPS or S_mac < EPS:  
+        print("Точка на границе треугольника")
+    else:
+        print("Точка внутри треугольника")
+elif S_sum > S_abc:  
+    print("Точка снаружи треугольника")
+else:
+    print("Ошибка в расчётах")  
