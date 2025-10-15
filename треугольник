@@ -55,7 +55,8 @@ print(f"Площадь треугольника ABC = {S_abc}")
 print(f"Сумма площадей всех треугольников = {S_sum}")
 
 
-if abs(S_abc - S_sum) <= EPS:  
+if abs(S_abc - S_sum) <= EPS:
+    abs(S_abc - S_sum) >= 0
     if S_mab < EPS or S_mbc < EPS or S_mac < EPS:  
         print("Точка на границе треугольника")
     else:
