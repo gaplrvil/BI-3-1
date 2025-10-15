@@ -1,0 +1,24 @@
+import random
+letters = ['D', 'O', 'N', 'A', 'L', 'G', 'E', 'R', 'B', 'T']
+D = 5
+
+while True:
+    # Список всех цифр без 5, Функция выбирает 9 случайных цифр без повторений
+    nums = random.sample([0,1,2,3,4,6,7,8,9], 9)  
+    # Словарь сочетаний: zip соединяет буквы и цифры из nums, а dict превращает это в словарь
+    mapping = dict(zip([l for l in letters if l != 'D'], nums))
+    mapping['D'] = D
+
+    # Не допускаем, чтобы числа начинались с нуля
+    if mapping['G'] == 0 or mapping['R'] == 0:
+        continue
+
+    DONALD = int(f"{mapping['D']}{mapping['O']}{mapping['N']}{mapping['A']}{mapping['L']}{mapping['D']}")
+    GERALD = int(f"{mapping['G']}{mapping['E']}{mapping['R']}{mapping['A']}{mapping['L']}{mapping['D']}")
+    ROBERT = int(f"{mapping['R']}{mapping['O']}{mapping['B']}{mapping['E']}{mapping['R']}{mapping['T']}")
+
+    if DONALD + GERALD == ROBERT:
+        print("Нашли решение!")
+        print(f'Словарь соответствий букв и цифр: \n{mapping}')
+        print(f"\n{DONALD} + {GERALD} = {ROBERT}")
+        break
